@@ -18,12 +18,16 @@ fn is_leap_year(year: i32) -> bool {
 struct Date {
     year: i32,
     month: i32,
-    hour: i32,
-    minute: i32,
-    second: i32
+    day: i32,
+    hour: u64,
+    minute: u64,
+    second: u64
 }
 
 fn get_current_date() -> Date {
+    // available as SystemTime::UNIX_EPOCH;
+    // 1970-01-01 00:00:00 UTC.
+    //
     let now = SystemTime::now();
     let current = now.duration_since(SystemTime::UNIX_EPOCH);
 
@@ -32,43 +36,9 @@ fn get_current_date() -> Date {
     let minute = (current.clone().expect("Expected seconds").as_secs()%seconds_per_hour)/SECONDS_PER_MINUTE;
     let second = current.clone().expect("Expected seconds").as_secs()%seconds_per_minute;
 
-
-}
-
-fn main() {
-    // Print current time
-    // Now I have the time since unix timestamp.
-
-    // available as SystemTime::UNIX_EPOCH;
-    // 1970-01-01 00:00:00 UTC.
-    // So every 60 seconds gets 1 minute
-    // every 3600 seconds gets 1 hour
-    // every 86400 seconds gets 1 day
-    //
-    // Then we need to check how many days it is,
-    // Let's first calculate without "skottår", we assume its
-    // 365 days
-    // every 
-    let current = now.duration_since(SystemTime::UNIX_EPOCH);
-
-    let seconds_per_day = 86400;
-    let seconds_per_hour = 3600;
-    let seconds_per_minute = 60;
-
-    let number_of_days = current.clone().expect("Expected seconds").as_secs()/seconds_per_day;
-    let hour = (current.clone().expect("Expected seconds").as_secs()%seconds_per_day)/seconds_per_hour;
-    let minute = (current.clone().expect("Expected seconds").as_secs()%seconds_per_hour)/seconds_per_minute;
-    let second = current.clone().expect("Expected seconds").as_secs()%seconds_per_minute;
-
-    println!("Days that have passed: {:?}, {:?}, {:?}", number_of_days, hour, minute);
-
-
-    // Now we have number of days passed.
-    // We can now start to add them, we need a lookup table for each month
-
-    let mut year = 1970;
-    let mut month = 1;
-    let mut day = 1;
+    let mut year: i32 = 1970;
+    let mut month: i32 = 1;
+    let mut day: i32 = 1;
 
     // Create mapping from month to number of days in that month.
     let month_days: [i32; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -94,6 +64,13 @@ fn main() {
 
 
     print!("{year}-{month:0>2}-{day:0>2}, {hour:0>2}:{minute:0>2}:{second:0>2}\n");
+    Date { year, month, day, hour, minute, second }
 
-    // I know that its from UNIX_EPOCH.
+}
+
+fn main() {
+    let current_date = get_current_date();
+
+    print!("{:?}", current_date);
+
 }
