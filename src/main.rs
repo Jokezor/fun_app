@@ -1,5 +1,9 @@
 use std::time::SystemTime;
 
+static SECONDS_PER_DAY: i32 = 86400;
+static SECONDS_PER_HOUR: i32 = 3600;
+static SECONDS_PER_MINUTE: i32 = 60;
+
 fn is_leap_year(year: i32) -> bool {
     // Divisble by 4
     // Unless its divisble by 100 but not 400.
@@ -9,12 +13,31 @@ fn is_leap_year(year: i32) -> bool {
 }
 
 // Now make it into a proper struct with year, month, day, hour, minute, second
-fn get_current_date() -> 
+
+#[derive(Debug)]
+struct Date {
+    year: i32,
+    month: i32,
+    hour: i32,
+    minute: i32,
+    second: i32
+}
+
+fn get_current_date() -> Date {
+    let now = SystemTime::now();
+    let current = now.duration_since(SystemTime::UNIX_EPOCH);
+
+    let number_of_days = current.clone().expect("Expected seconds").as_secs()/SECONDS_PER_DAY;
+    let hour = (current.clone().expect("Expected seconds").as_secs()%seconds_per_day)/SECONDS_PER_DAY;
+    let minute = (current.clone().expect("Expected seconds").as_secs()%seconds_per_hour)/SECONDS_PER_MINUTE;
+    let second = current.clone().expect("Expected seconds").as_secs()%seconds_per_minute;
+
+
+}
 
 fn main() {
     // Print current time
     // Now I have the time since unix timestamp.
-    let now = SystemTime::now();
 
     // available as SystemTime::UNIX_EPOCH;
     // 1970-01-01 00:00:00 UTC.
