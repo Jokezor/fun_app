@@ -1,8 +1,10 @@
+#![allow(dead_code)]
+
 use std::time::SystemTime;
 
-static SECONDS_PER_DAY: i32 = 86400;
-static SECONDS_PER_HOUR: i32 = 3600;
-static SECONDS_PER_MINUTE: i32 = 60;
+static SECONDS_PER_DAY: u64 = 86400;
+static SECONDS_PER_HOUR: u64 = 3600;
+static SECONDS_PER_MINUTE: u64 = 60;
 
 fn is_leap_year(year: i32) -> bool {
     // Divisble by 4
@@ -12,10 +14,9 @@ fn is_leap_year(year: i32) -> bool {
     !((year % 4 != 0) || (year % 100 == 0 && year % 400 !=0))
 }
 
-// Now make it into a proper struct with year, month, day, hour, minute, second
 
 #[derive(Debug)]
-struct Date {
+struct DateTime {
     year: i32,
     month: i32,
     day: i32,
@@ -24,18 +25,33 @@ struct Date {
     second: u64
 }
 
-fn get_current_date() -> Date {
-    // available as SystemTime::UNIX_EPOCH;
-    // 1970-01-01 00:00:00 UTC.
-    //
-    let now = SystemTime::now();
-    let current = now.duration_since(SystemTime::UNIX_EPOCH);
 
-    let number_of_days = current.clone().expect("Expected seconds").as_secs()/SECONDS_PER_DAY;
-    let hour = (current.clone().expect("Expected seconds").as_secs()%seconds_per_day)/SECONDS_PER_DAY;
-    let minute = (current.clone().expect("Expected seconds").as_secs()%seconds_per_hour)/SECONDS_PER_MINUTE;
-    let second = current.clone().expect("Expected seconds").as_secs()%seconds_per_minute;
+#[derive(Debug)]
+struct Date {
+    year: i32,
+    month: i32,
+    day: i32
+}
 
+fn get_current_minute(current_time: u64) -> u64 {
+    (current_time%SECONDS_PER_HOUR)/SECONDS_PER_MINUTE
+}
+
+fn get_current_hour(current_time : u64) -> u64 {
+    (current_time%SECONDS_PER_DAY)/SECONDS_PER_HOUR
+}
+
+fn get_current_second(current_time: u64) -> u64 {
+    current_time%SECONDS_PER_MINUTE
+}
+
+fn get_current_days(current_time: u64) -> u64 {
+    current_time/SECONDS_PER_DAY
+}
+
+
+fn get_current_date(current_time: u64) -> Date {
+    let number_of_days = get_current_days(current_time);
     let mut year: i32 = 1970;
     let mut month: i32 = 1;
     let mut day: i32 = 1;
@@ -46,10 +62,10 @@ fn get_current_date() -> Date {
     // Now go through all days, add to start_day and roll over when hitting limit.
     for _i in 0..number_of_days {
         day += 1;
-        let mut day_limit = month_days[month-1];
+        let mut day_limit = month_days[(month-1) as usize];
 
         // Clean up this later.
-        if (month == 2 && is_leap_year(year)) {
+        if month == 2 && is_leap_year(year) {
             day_limit += 1;
         }
         if day > day_limit {
@@ -62,15 +78,30 @@ fn get_current_date() -> Date {
         }
     }
 
+    Date { year, month, day }
+}
 
-    print!("{year}-{month:0>2}-{day:0>2}, {hour:0>2}:{minute:0>2}:{second:0>2}\n");
-    Date { year, month, day, hour, minute, second }
+
+fn get_current_datetime() -> DateTime {
+    // available as SystemTime::UNIX_EPOCH;
+    // 1970-01-01 00:00:00 UTC.
+    //
+    let now = SystemTime::now();
+    let current = now.duration_since(SystemTime::UNIX_EPOCH).expect("Expected seconds").as_secs();
+
+    let hour = get_current_hour(current);
+    let minute = get_current_minute(current);
+    let second = get_current_second(current);
+
+    let current_date: Date = get_current_date(current);
+
+    DateTime { year: current_date.year, month: current_date.month, day: current_date.day, hour, minute, second }
 
 }
 
 fn main() {
-    let current_date = get_current_date();
+    let current_date = get_current_datetime();
 
-    print!("{:?}", current_date);
+    print!("{:?}\n", current_date);
 
 }
