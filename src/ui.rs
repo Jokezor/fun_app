@@ -1,22 +1,32 @@
 use glib::clone;
 
 use gtk::glib;
+use gtk::{ApplicationWindow, Button};
 use gtk::prelude::*;
 
-fn on_activate(application: &gtk::Application) {
-    let window = gtk::ApplicationWindow::new(application);
 
-    let button = gtk::Button::with_label("Hello world!");
+// Now change to take input to show on screen
 
-    button.connect_clicked(clone!(@weak window => move |_| window.close()));
-    window.set_child(Some(&button));
-    window.present();
-}
-
-pub fn main() {
+pub fn main(current_time: String) {
     let app = gtk::Application::builder()
         .application_id("com.github.gtk-rs.examples.basic")
         .build();
-    app.connect_activate(on_activate);
+
+    app.connect_activate(move |app| {
+        let window = ApplicationWindow::builder()
+            .application(app)
+            .title("First gtk program")
+            .default_width(350)
+            .default_height(70)
+            .build();
+
+        let button = Button::with_label(&current_time);
+        button.connect_clicked(|_| {
+            eprintln!("Clicked!");
+        });
+        window.add(&button);
+
+        window.show_all();
+    });
     app.run();
 }
