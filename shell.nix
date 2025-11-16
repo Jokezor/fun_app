@@ -4,10 +4,8 @@ let
 in
 pkgs.mkShellNoCC {
   packages = with pkgs; [
-    gtk4
+    gtk3
     pkg-config
-    pkg-config-unwrapped
-    cairo
   ];
 }
 

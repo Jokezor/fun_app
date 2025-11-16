@@ -9,7 +9,7 @@
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       naersk' = pkgs.callPackage naersk { };
-      nativeBuildInputs = with pkgs; [ pkg-config glibc gtk4 haskellPackages.gi-gdk ];
+      nativeBuildInputs = with pkgs; [ pkg-config glibc gtk3 ];
 
     in flake-utils.lib.eachDefaultSystem (system: rec {
       defaultPackage = naersk'.buildPackage {

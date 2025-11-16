@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 // Here we should import the ui module.
-//pub use crate::ui::ui::run;
+pub use crate::ui::ui::run;
 
 use std::time::SystemTime;
 
