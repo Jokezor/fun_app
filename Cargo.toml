@@ -4,5 +4,6 @@ version = "0.0.1"
 edition = "2021"
 
 [dependencies]
+glib = "0.17.10"
 gtk = "0.18.2"
 time = "0.3.44"
