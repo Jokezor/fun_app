@@ -6,6 +6,7 @@ pkgs.mkShellNoCC {
   packages = with pkgs; [
     gtk3
     pkg-config
+    clang
   ];
 }
 
