@@ -1,5 +1,8 @@
 #![allow(dead_code)]
 
+use std::thread;
+use std::time::Duration;
+
 // Here we should import the ui module.
 pub mod ui;
 
@@ -103,13 +106,13 @@ fn get_current_datetime() -> DateTime {
 }
 
 fn main() {
-    let current_date = get_current_datetime();
+    while true {
+        let current_date = get_current_datetime();
 
-    // let current_date_string = String::from(current_date);
+        let current_date_string = format!("{0}-{1:0>2}-{2:0>2}, {3:0>2}:{4:0>2}:{5:0>2}", current_date.year, current_date.month, current_date.day, current_date.hour, current_date.minute, current_date.second);
+        ui::main(current_date_string);
 
-    let current_date_string = format!("{0}-{1:0>2}-{2:0>2}, {3:0>2}:{4:0>2}:{5:0>2}", current_date.year, current_date.month, current_date.day, current_date.hour, current_date.minute, current_date.second);
-
-
-    ui::main(current_date_string);
+        thread::sleep(Duration::from_secs(1));
+    }
 
 }
