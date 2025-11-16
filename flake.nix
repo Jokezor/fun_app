@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.05";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
     flake-utils.url = "github:numtide/flake-utils";
     naersk.url = "github:nix-community/naersk";
   };
@@ -9,7 +9,7 @@
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       naersk' = pkgs.callPackage naersk { };
-      nativeBuildInputs = with pkgs; [ pkgconfig glibc gtk4 ];
+      nativeBuildInputs = with pkgs; [ pkg-config glibc gtk4 haskellPackages.gi-gdk ];
 
     in flake-utils.lib.eachDefaultSystem (system: rec {
       defaultPackage = naersk'.buildPackage {
