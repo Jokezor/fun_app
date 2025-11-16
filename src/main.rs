@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 // Here we should import the ui module.
-pub use crate::ui::ui::run;
+pub mod ui;
 
 use std::time::SystemTime;
 
@@ -106,5 +106,7 @@ fn main() {
     let current_date = get_current_datetime();
 
     print!("{:?}\n", current_date);
+
+    ui::main();
 
 }

@@ -1,5 +1,3 @@
-pub mod ui;
-
 use glib::clone;
 
 use gtk::glib;
@@ -15,9 +13,9 @@ fn on_activate(application: &gtk::Application) {
     window.present();
 }
 
-pub fn run() {
+pub fn main() {
     let app = gtk::Application::builder()
-        .application_is("com.github.gtk-rs.examples.basic")
+        .application_id("com.github.gtk-rs.examples.basic")
         .build();
     app.connect_activate(on_activate);
     app.run();
