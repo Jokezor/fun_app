@@ -4,6 +4,8 @@ By using Leader + Shift + Space it will go into floating mode and can be viewed 
 
 Now I can look into how to shape it.
 For that we need to add css.
+Here we have an example:
+https://github.com/gtk-rs/gtk3-rs/blob/master/examples/css/main.rs
 
 
 2025-11-16
