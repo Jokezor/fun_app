@@ -1,5 +1,6 @@
 use gtk::glib;
 use gtk::{ApplicationWindow};
+use gtk::{gdk, gio};
 use gtk::prelude::*;
 use std::time::Duration;
 
@@ -12,6 +13,13 @@ pub fn main() {
     let app = gtk::Application::builder()
         .application_id("com.github.gtk-rs.examples.basic")
         .build();
+
+    application.connect_startup(|app| {
+        let provider = gtk::CssProvider::new();
+
+        // load css
+        let style = include_bytes!("style.css");
+    }
 
     app.connect_activate(move |app| {
         let window = ApplicationWindow::builder()
