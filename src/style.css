@@ -1,4 +1,10 @@
 #clock-face {
     background-color: yellow;
-    color: red;
+    color: blue;
+}
+
+
+#clock-text {
+    background-color: pink;
+    color: white;
 }
