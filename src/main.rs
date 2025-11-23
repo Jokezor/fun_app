@@ -19,10 +19,10 @@ pub fn main() {
 
         // load css
         let style = include_bytes!("style.css");
-        provider.load_from_data(style).expect("Failed to load CSS");
+        provider.load_from_bytes(style).expect("Failed to load CSS");
 
-        gtk::StyleContext::add_provider_for_screen(
-            &gdk::Screen::default().expect("Error initializing gtk css provider."),
+        gtk::style_context_add_provider_for_display(
+            &gdk::Display::default().expect("Could not connect to a display"),
             &provider,
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION
         );
@@ -34,10 +34,6 @@ pub fn main() {
             .title("First gtk program")
             .build();
 
-        window.set_border_width(10);
-        window.set_position(gtk::WindowPosition::Center);
-        window.set_default_size(260, 40);
-
         let time = time::get_current_date_string();
         let label = gtk::Label::new(None);
         label.set_text(&time);
@@ -46,7 +42,7 @@ pub fn main() {
         label.set_widget_name("clock-text");
 
         window.add(&label);
-        window.show_all();
+        window.show();
 
         let tick = move || {
             let time = time::get_current_date_string();

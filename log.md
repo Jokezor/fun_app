@@ -8,6 +8,17 @@ Will try to upgrade to gtk4.
 Need to upgrade cargo it seems.
 Should use the shell.nix file more.
 
+Got it installed with the shell.nix but now I need to fix the syntax errors.
+Why is everything still setup hell? :P
+
+Any project is the same, a few hours of nice coding and then lots of configuration with libraries or dependencies. There's quite a few too many dependencies?
+A ton of ways to set things up. This project is not meant to be a lot of library config.
+I should fix the LSP which should make some things easier.
+
+shell.nix along with flakes does make some things easier as well.
+But its still not smooth development.
+Not upgrading is also not an option often since you do not want to build a new project on legacy not maintained libraries. So either stick to a tech stack which is more known, get better at setup with nix or code without any libraries. Not really possible since to do anything you need access to lower level stuff. To access that it's required.
+
 
 2025-11-22
 
