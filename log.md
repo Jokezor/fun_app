@@ -1,7 +1,24 @@
+2025-11-23
+
+Quite tired after concert and being sick.
+Lets look into cairo.
+
+Also why gtk3 instead of gtk4?
+Will try to upgrade to gtk4.
+Need to upgrade cargo it seems.
+Should use the shell.nix file more.
+
+
 2025-11-22
 
 Now back again!
 Going through adding css.
+
+Success.
+Now looking to refactor and look into cairo:
+https://docs.rs/cairo-rs/latest/cairo/
+
+Its used for drawing circles which is needed to fully show a clock.
 
 
 2025-11-17

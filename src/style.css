@@ -1,6 +1,8 @@
 #clock-face {
     background-color: yellow;
     color: blue;
+    border-radius: 10px;
+    border: 2px solid yellow;
 }
 
 
@@ -8,3 +10,5 @@
     background-color: pink;
     color: white;
 }
+
+

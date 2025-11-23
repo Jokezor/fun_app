@@ -1,9 +1,9 @@
 [package]
 name = "clock_time"
 version = "0.0.1"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 glib = "0.17.10"
-gtk = "0.18.2"
 time = "0.3.44"
+gtk = {version = "0.10.0", package = "gtk4"}

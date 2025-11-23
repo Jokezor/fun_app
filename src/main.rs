@@ -41,8 +41,8 @@ pub fn main() {
         let time = time::get_current_date_string();
         let label = gtk::Label::new(None);
         label.set_text(&time);
-        window.set_widget_name("clock-face");
 
+        window.set_widget_name("clock-face");
         label.set_widget_name("clock-text");
 
         window.add(&label);
